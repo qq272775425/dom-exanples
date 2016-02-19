@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖拽</title>
+<style>
+	#div1{
+		height: 200px;
+		width: 200px;
+		background: red;
+		position: absolute;
+	}
+</style>
+</head>
+<body>
+	<div id="div1"></div>
+<script>
+	oDiv = document.getElementById('div1');
+	oDiv.onmousedown = function(e){
+		e = e || window.event;
+		var x = e.clientX-oDiv.offsetLeft;
+		var y = e.clientY-oDiv.offsetTop;
+		document.onmousemove = function(e){
+		e = e || window.event;
+		var ix = e.clientX-x;
+		var iy = e.clientY-y;
+		oDiv.style.left = ix + 'px';
+		oDiv.style.top = iy + 'px';
+		};
+		oDiv.onmouseup = function(){
+			document.onmousemove = null;
+		};
+	};
+	// 事件三要素：
+	// 事件源
+	// 事件源
+	// 事件处理函数	
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>放大镜</title>
+<style>
+    *{
+	padding: 0;
+	margin: 0;
+    }
+	#small-pic{
+		height: 310px;
+		width: 310px;
+	}
+	#small-box{
+		height: 310px;
+		width: 310px;
+		border: black 1px solid;
+		margin: 20px 0 0 20px;/*上右下左*/
+		position: relative;
+		overflow: hidden;
+	}
+	#big-box{
+		height: 620px;
+		width: 620px;
+		border: black 1px solid;
+		position: absolute;
+		left: 350px;
+		top: 20px;
+		overflow: hidden;
+		display: none;
+		position: absolute;
+		top: 20px;
+		left: 350px;
+	}
+	#bg-pic{
+		position: absolute;
+
+	}
+	#float-box{
+		height: 50px;
+		width: 50px;
+		border: black 1px solid;
+		opacity: 0.4;
+		background: #000;
+		position: absolute;
+		left: 20px;
+		top: 20px;
+		display: none;
+
+	}
+</style>
+
+</head>
+<body>
+	<div id="small-box">
+		<img id = 'small-pic' src="img/1.JPG" alt="">
+		<div id="float-box"></div>
+	</div>
+	<div id="big-box">
+		<img src="img/1.JPG" alt="" id="bg-pic">
+	</div>
+<script src="jquery-1.9.1.min.js"></script>
+<script>
+	var oSmallbox = document.getElementById('small-box');
+	var oFloatbox = document.getElementById('float-box');
+	var oBigbox = document.getElementById('big-box');
+	var oBigpic = document.getElementById('bg-pic');
+	oSmallbox.onmouseover = function () {
+		oFloatbox.style.display='block';
+		oBigbox.style.display='block';
+	};
+	oSmallbox.onmouseout = function () {
+		oFloatbox.style.display='none';
+		oBigbox.style.display='none';
+	};
+	oSmallbox.onmousemove = function(e){
+		e = e||window.event;
+		var iLeft = e.clientX-oSmallbox.offsetLeft-oFloatbox.offsetWidth/2;
+		var iTop = e.clientY-oSmallbox.offsetTop-oFloatbox.offsetHeight/2;
+		if (iLeft>oSmallbox.offsetWidth-oFloatbox.offsetWidth) {
+			iLeft = oSmallbox.offsetWidth-oFloatbox.offsetWidth;
+		}
+		if (iTop>oSmallbox.offsetHeight-oFloatbox.offsetHeight) {
+			iTop = oSmallbox.offsetHeighth-oFloatbox.offsetHeight
+		}
+		if (iTop<0) {
+			iTop = 0;
+		}
+		if (iLeft<0) {
+			iLeft = 0;
+		}
+
+		var fLeft = iLeft/(oSmallbox.offsetWidth-oFloatbox.offsetWidth);
+		var fTop = iTop/(oSmallbox.offsetHeight-oFloatbox.offsetHeight);
+		oFloatbox.style.left = iLeft+'px';
+		oFloatbox.style.top = iTop+'px';
+		oBigpic.style.left = -(oBigpic.offsetWidth-oBigbox.offsetWidth)*fLeft+'px';
+		oBigpic.style.top = -(oBigpic.offsetHeight-oBigbox.offsetHeight)*fTop+'px';
+
+
+	}
+	
+
+
+
+
+	// $(function(){
+	// 	var $smallBox = $('#small-box'),
+	// 		$floatBox = $('#float-box'),
+	// 		$bigBox = $('#big-box'),
+	// 		$bigPic = $('#bg-pic');
+	// 	$smallBox.hover(function(){
+	// 		$floatBox.show();
+	// 		$bigBox.show();
+	// 	},function(){
+	// 		$floatBox.hide();
+	// 		$bigBox.hide();
+	// 	}).on('mousemove',function(e){
+	// 		var iLeft = e.pageX-$smallBox.offset().left-$floatBox.width()/2;
+	// 		var iTop = e.pageY-$smallBox.offset().top-$floatBox.height()/2;
+	// 	if (iLeft>$smallBox.width()+$floatBox.width()) {
+	//  		iLeft = $smallBox.width()+$floatBox.width();
+	//  	}
+	//  	if (iTop>$smallBox.height()+$floatBox.height()) {
+	//  		iTop = $smallBox.height()+$floatBox.height()
+	//  	}
+	//  	if (iTop<0) {
+	//  		iTop = 0;
+	//  	}
+	//  	if (iLeft<0) {
+	//  		iLeft = 0;
+	//  	}
+
+	//  	$floatBox.offset({
+	//  		left: iLeft,
+	//  		top: iTop
+	//  	});
+	 	
+	//  	var fLeft = iLeft/($smallBox.width()-$floatBox.width());
+	// 	var fTop = iTop/($smallBox.height()-$floatBox.height());
+
+	// 	$bigPic.offset({
+	// 		left:-($bigPic.width()-$bigBox.width())*fLeft,
+	// 		top :-($bigPic.height()-$bigBox.height())*fTop
+	// 	});
+	// 	});
+
+	// });
+</script>
+</body>
+</html>
